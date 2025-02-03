@@ -35,7 +35,7 @@
     <!-- Release: enable publication to Bintray -->
     <artifactsToPublish>${project.groupId}:${project.artifactId}:jar</artifactsToPublish>
 
-    <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
     <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
 
     <sonar.jacoco.reportPaths>${jacoco.ut.execution.data.file}</sonar.jacoco.reportPaths>
