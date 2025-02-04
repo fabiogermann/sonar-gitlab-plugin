@@ -142,7 +142,7 @@
     <dependency>
       <groupId>org.sonarsource.api.plugin</groupId>
       <artifactId>sonar-plugin-api</artifactId>
-      <version>11.1.0.2693</version>
+      <version>11.0.0.2664</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
