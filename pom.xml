@@ -16,9 +16,9 @@
   <packaging>sonar-plugin</packaging>
   <url>https://github.com/javamachr/sonar-gitlab-plugin</url>
   <properties>
-    <maven.compiler.release>21</maven.compiler.release>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <java-gitlab-api.version>1.5.0</java-gitlab-api.version>
     <freemarker.version>2.3.31</freemarker.version>
     <commons-text.version>1.9</commons-text.version>
@@ -27,7 +27,7 @@
     <license.owner>Talanlabs</license.owner>
 
     <sonar.version>25.1.0.102122</sonar.version>
-    <sonar-api.version>11.1.0.2693</sonar-api.version>
+    <sonar-api.version>11.0.0.2664</sonar-api.version>
     <sonar.pluginName>GitLab</sonar.pluginName>
     <sonar.pluginClass>com.talanlabs.sonar.plugins.gitlab.GitLabPlugin</sonar.pluginClass>
 
