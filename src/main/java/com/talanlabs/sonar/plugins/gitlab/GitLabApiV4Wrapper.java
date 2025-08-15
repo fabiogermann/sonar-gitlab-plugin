@@ -214,8 +214,14 @@ public class GitLabApiV4Wrapper implements IGitLabApiWrapper {
     @Override
     public void createOrUpdateSonarQubeStatus(String status, String statusDescription) {
         try {
+            // GitLab API has a maximum limit of 255 characters for the description field
+            String truncatedDescription = statusDescription;
+            if (statusDescription != null && statusDescription.length() > 255) {
+                truncatedDescription = statusDescription.substring(0, 252) + "...";
+                LOG.debug("Status description truncated from {} to 255 characters", statusDescription.length());
+            }
             gitLabAPIV4.getGitLabAPICommits()
-                    .postCommitStatus(gitLabProject.getId(), getFirstCommitSHA(), status, config.refName(), config.statusName(), null, statusDescription);
+                    .postCommitStatus(gitLabProject.getId(), getFirstCommitSHA(), status, config.refName(), config.statusName(), null, truncatedDescription);
         } catch (IOException e) {
             // Workaround for https://gitlab.com/gitlab-org/gitlab-ce/issues/25807
             if (e.getMessage() != null && e.getMessage().contains("Cannot transition status")) {
