@@ -256,8 +256,9 @@ public class SonarFacade {
     }
 
     private String toString(GetRequest getRequest) {
-        String params = getRequest.getParams().entrySet().stream().sorted(Map.Entry.comparingByKey()).map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining("&"));
-        return getRequest.getPath() + "?" + params;
+        // In newer versions of SonarQube, GetRequest doesn't expose params directly
+        // Return just the path for logging purposes
+        return getRequest.getPath();
     }
 
     private int computeNbPage(long total, int pageSize) {
