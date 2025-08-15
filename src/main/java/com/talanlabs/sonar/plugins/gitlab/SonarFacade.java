@@ -66,8 +66,13 @@ public class SonarFacade {
     public SonarFacade(Configuration settings, GitLabPluginConfiguration gitLabPluginConfiguration) {
         this.gitLabPluginConfiguration = gitLabPluginConfiguration;
 
+        // Try to use sonar.token first, then fall back to sonar.login, then null
+        String authToken = settings.get("sonar.token")
+                .or(() -> settings.get(CoreProperties.LOGIN))
+                .orElse(null);
+        
         HttpConnector httpConnector = HttpConnector.newBuilder().url(gitLabPluginConfiguration.baseUrl())
-                .credentials(settings.get(CoreProperties.LOGIN).orElse(null), settings.get(CoreProperties.PASSWORD).orElse(null)).build();
+                .credentials(authToken, settings.get(CoreProperties.PASSWORD).orElse(null)).build();
 
         wsClient = WsClientFactories.getDefault().newClient(httpConnector);
     }
