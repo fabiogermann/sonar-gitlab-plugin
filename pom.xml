@@ -21,12 +21,12 @@
     <maven.compiler.target>17</maven.compiler.target>
     <java-gitlab-api.version>1.5.0</java-gitlab-api.version>
     <freemarker.version>2.3.34</freemarker.version>
-    <commons-text.version>1.14.0</commons-text.version>
+    <commons-text.version>1.15.0</commons-text.version>
 
     <license.mailto>gabriel.allaigre@gmail.com</license.mailto>
     <license.owner>Talanlabs</license.owner>
 
-    <sonar.version>25.8.0.112029</sonar.version>
+    <sonar.version>25.12.0.117093</sonar.version>
     <sonar-api.version>12.0.0.2960</sonar-api.version>
     <sonar.pluginName>GitLab</sonar.pluginName>
     <sonar.pluginClass>com.talanlabs.sonar.plugins.gitlab.GitLabPlugin</sonar.pluginClass>
@@ -36,7 +36,7 @@
     <!-- Release: enable publication to Bintray -->
     <artifactsToPublish>${project.groupId}:${project.artifactId}:jar</artifactsToPublish>
 
-    <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
 
     <sonar.jacoco.reportPaths>${jacoco.ut.execution.data.file}</sonar.jacoco.reportPaths>
@@ -181,7 +181,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.4.8-jre</version>
+      <version>33.5.0-jre</version>
     </dependency>
     <!-- unit tests -->
     <dependency>
@@ -193,13 +193,13 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.27.3</version>
+      <version>3.27.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.18.0</version>
+      <version>5.21.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -211,7 +211,7 @@
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>mockwebserver</artifactId>
-      <version>4.12.0</version>
+      <version>5.3.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
