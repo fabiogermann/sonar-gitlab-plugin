@@ -100,6 +100,19 @@ public abstract class AbstractCommentBuilder {
         root.put("commentNoIssue", gitLabPluginConfiguration.commentNoIssue());
         root.put("sonarUrl", gitLabPluginConfiguration.baseUrl());
         root.put("publishMode", true);
+        // Additional configuration variables
+        root.put("mergeRequestIid", gitLabPluginConfiguration.mergeRequestIid());
+        root.put("pullRequestKey", gitLabPluginConfiguration.pullRequestKey());
+        root.put("statusName", gitLabPluginConfiguration.statusName());
+        root.put("pingUser", gitLabPluginConfiguration.pingUser());
+        root.put("allIssues", gitLabPluginConfiguration.allIssues());
+        root.put("issueFilter", gitLabPluginConfiguration.issueFilter());
+        root.put("apiVersion", gitLabPluginConfiguration.apiVersion());
+        root.put("prefixDirectory", gitLabPluginConfiguration.prefixDirectory());
+        root.put("uniqueIssuePerInline", gitLabPluginConfiguration.uniqueIssuePerInline());
+        root.put("failOnQualityGate", gitLabPluginConfiguration.failOnQualityGate());
+        root.put("isMergeRequestDiscussion", gitLabPluginConfiguration.isMergeRequestDiscussionEnabled());
+        root.put("projectKey", gitLabPluginConfiguration.projectKey());
         // Report
         root.put("revision", revision);
         Arrays.stream(Severity.values()).forEach(severity -> root.put(severity.name(), severity));

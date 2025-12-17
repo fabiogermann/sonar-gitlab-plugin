@@ -189,6 +189,10 @@ public class GitLabPluginConfigurationTest {
         Assertions.assertThat(config.statusName()).isEqualTo("sonarqube");
         settings.setProperty(GitLabPlugin.GITLAB_STATUS_NAME, "sonar-analysis-1");
         Assertions.assertThat(config.statusName()).isEqualTo("sonar-analysis-1");
+
+        Assertions.assertThat(config.projectKey()).isNull();
+        settings.setProperty("sonar.projectKey", "my-project-key");
+        Assertions.assertThat(config.projectKey()).isEqualTo("my-project-key");
     }
 
     @Test

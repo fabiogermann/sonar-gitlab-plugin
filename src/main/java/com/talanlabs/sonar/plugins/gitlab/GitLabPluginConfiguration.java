@@ -285,4 +285,9 @@ public class GitLabPluginConfiguration {
         return configuration.get(GitLabPlugin.GITLAB_STATUS_NAME).orElse("sonarqube");
     }
 
+    @CheckForNull
+    public String projectKey() {
+        return configuration.get("sonar.projectKey").orElse(null);
+    }
+
 }
