@@ -378,5 +378,92 @@ public class GlobalTemplateTest {
                         + "* Toto3 is passed: Actual value 13\n" + "* Toto4 is warning: Actual value 14 is > 20\n" + "* Toto5 is warning: Actual value 15 is = 10\n"
                         + "* Toto6 is failed: Actual value 15 is = 50\n" + "\n" + "SonarQube analysis reported 1 issue\n" + "* :information_source: 1 info\n" + "\n"
                         + "Watch the comments in this conversation to review them.\n");
-    }
+   }
+
+   @Test
+   public void testTemplateNewVariables() {
+       // Set up configuration values for the new variables
+       settings.setProperty(GitLabPlugin.GITLAB_CI_MERGE_REQUEST_IID, "42");
+       settings.setProperty(GitLabPlugin.SONAR_PULL_REQUEST_KEY, "123");
+       settings.setProperty(GitLabPlugin.GITLAB_STATUS_NAME, "custom-status");
+       settings.setProperty(GitLabPlugin.GITLAB_PING_USER, "true");
+       settings.setProperty(GitLabPlugin.GITLAB_ALL_ISSUES, "true");
+       settings.setProperty(GitLabPlugin.GITLAB_ISSUE_FILTER, "MAJOR");
+       settings.setProperty(GitLabPlugin.GITLAB_API_VERSION, "v4");
+       settings.setProperty(GitLabPlugin.GITLAB_PREFIX_DIRECTORY, "/src/main");
+       settings.setProperty(GitLabPlugin.GITLAB_UNIQUE_ISSUE_PER_INLINE, "true");
+       settings.setProperty(GitLabPlugin.GITLAB_FAIL_ON_QUALITY_GATE, "true");
+       settings.setProperty(GitLabPlugin.GITLAB_MERGE_REQUEST_DISCUSSION, "true");
+       settings.setProperty("sonar.projectKey", "my-project");
+
+       config = new GitLabPluginConfiguration(settings.asConfig(), new System2());
+
+       String testTemplate = "MR: ${mergeRequestIid}\n" +
+               "PR Key: ${pullRequestKey}\n" +
+               "Status: ${statusName}\n" +
+               "Ping: ${pingUser?c}\n" +
+               "All Issues: ${allIssues?c}\n" +
+               "Filter: ${issueFilter}\n" +
+               "API: ${apiVersion}\n" +
+               "Prefix: ${prefixDirectory}\n" +
+               "Unique: ${uniqueIssuePerInline?c}\n" +
+               "Fail QG: ${failOnQualityGate?c}\n" +
+               "Discussion: ${isMergeRequestDiscussion?c}\n" +
+               "Project: ${projectKey}";
+
+       settings.setProperty(GitLabPlugin.GITLAB_GLOBAL_TEMPLATE, testTemplate);
+
+       Reporter reporter = new Reporter(config);
+
+       Assertions.assertThat(new GlobalCommentBuilder(config, null, null, reporter, new MarkDownUtils()).buildForMarkdown())
+               .isEqualTo("MR: 42\n" +
+                       "PR Key: 123\n" +
+                       "Status: custom-status\n" +
+                       "Ping: true\n" +
+                       "All Issues: true\n" +
+                       "Filter: MAJOR\n" +
+                       "API: v4\n" +
+                       "Prefix: /src/main\n" +
+                       "Unique: true\n" +
+                       "Fail QG: true\n" +
+                       "Discussion: true\n" +
+                       "Project: my-project");
+   }
+
+   @Test
+   public void testTemplateNewVariablesDefaults() {
+       // Test with default values (no custom configuration)
+       config = new GitLabPluginConfiguration(settings.asConfig(), new System2());
+
+       String testTemplate = "MR: ${mergeRequestIid}\n" +
+               "PR Key: ${pullRequestKey}\n" +
+               "Status: ${statusName}\n" +
+               "Ping: ${pingUser?c}\n" +
+               "All Issues: ${allIssues?c}\n" +
+               "Filter: ${issueFilter}\n" +
+               "API: ${apiVersion}\n" +
+               "Prefix: ${prefixDirectory!\"N/A\"}\n" +
+               "Unique: ${uniqueIssuePerInline?c}\n" +
+               "Fail QG: ${failOnQualityGate?c}\n" +
+               "Discussion: ${isMergeRequestDiscussion?c}\n" +
+               "Project: ${projectKey!\"N/A\"}";
+
+       settings.setProperty(GitLabPlugin.GITLAB_GLOBAL_TEMPLATE, testTemplate);
+
+       Reporter reporter = new Reporter(config);
+
+       Assertions.assertThat(new GlobalCommentBuilder(config, null, null, reporter, new MarkDownUtils()).buildForMarkdown())
+               .isEqualTo("MR: -1\n" +
+                       "PR Key: -1\n" +
+                       "Status: sonarqube\n" +
+                       "Ping: false\n" +
+                       "All Issues: false\n" +
+                       "Filter: INFO\n" +
+                       "API: v4\n" +
+                       "Prefix: N/A\n" +
+                       "Unique: false\n" +
+                       "Fail QG: false\n" +
+                       "Discussion: false\n" +
+                       "Project: N/A");
+   }
 }

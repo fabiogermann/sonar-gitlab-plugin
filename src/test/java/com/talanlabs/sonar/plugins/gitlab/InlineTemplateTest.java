@@ -84,4 +84,49 @@ public class InlineTemplateTest {
         Assertions.assertThat(new InlineCommentBuilder(config, "123", null, 1, Collections.singletonList(r1), new MarkDownUtils()).buildForMarkdown())
                 .isEqualTo(":information_source: Issue [:blue_book:](http://myserver/coding_rules#rule_key=repo%3Arule)\nàâéç");
     }
+
+    @Test
+    public void testTemplateNewVariables() {
+        // Set up configuration values for the new variables
+        settings.setProperty(GitLabPlugin.GITLAB_CI_MERGE_REQUEST_IID, "42");
+        settings.setProperty(GitLabPlugin.SONAR_PULL_REQUEST_KEY, "123");
+        settings.setProperty(GitLabPlugin.GITLAB_STATUS_NAME, "custom-status");
+        settings.setProperty(GitLabPlugin.GITLAB_PING_USER, "true");
+        settings.setProperty(GitLabPlugin.GITLAB_ALL_ISSUES, "true");
+        settings.setProperty(GitLabPlugin.GITLAB_ISSUE_FILTER, "MAJOR");
+        settings.setProperty(GitLabPlugin.GITLAB_API_VERSION, "v4");
+        settings.setProperty(GitLabPlugin.GITLAB_PREFIX_DIRECTORY, "/src/main");
+        settings.setProperty(GitLabPlugin.GITLAB_UNIQUE_ISSUE_PER_INLINE, "true");
+        settings.setProperty(GitLabPlugin.GITLAB_FAIL_ON_QUALITY_GATE, "true");
+        settings.setProperty(GitLabPlugin.GITLAB_MERGE_REQUEST_DISCUSSION, "true");
+        settings.setProperty("sonar.projectKey", "my-project");
+
+        config = new GitLabPluginConfiguration(settings.asConfig(), new System2());
+
+        String testTemplate = "MR IID: ${mergeRequestIid}, PR Key: ${pullRequestKey}, Status: ${statusName}, Project: ${projectKey}";
+
+        settings.setProperty(GitLabPlugin.GITLAB_INLINE_TEMPLATE, testTemplate);
+
+        ReportIssue r1 = ReportIssue.newBuilder().issue(Utils.newIssue("component", null, 1, Severity.INFO, true, "Issue", "rule")).revision(null).url("lalal").file("file").ruleLink(
+                "http://myserver/coding_rules#rule_key=repo%3Arule").reportedOnDiff(true).build();
+
+        Assertions.assertThat(new InlineCommentBuilder(config, "123", null, 1, Collections.singletonList(r1), new MarkDownUtils()).buildForMarkdown())
+                .isEqualTo("MR IID: 42, PR Key: 123, Status: custom-status, Project: my-project");
+    }
+
+    @Test
+    public void testTemplateNewVariablesDefaults() {
+        // Test with default values
+        config = new GitLabPluginConfiguration(settings.asConfig(), new System2());
+
+        String testTemplate = "Ping: ${pingUser?c}, All: ${allIssues?c}, Unique: ${uniqueIssuePerInline?c}, Discussion: ${isMergeRequestDiscussion?c}";
+
+        settings.setProperty(GitLabPlugin.GITLAB_INLINE_TEMPLATE, testTemplate);
+
+        ReportIssue r1 = ReportIssue.newBuilder().issue(Utils.newIssue("component", null, 1, Severity.INFO, true, "Issue", "rule")).revision(null).url("lalal").file("file").ruleLink(
+                "http://myserver/coding_rules#rule_key=repo%3Arule").reportedOnDiff(true).build();
+
+        Assertions.assertThat(new InlineCommentBuilder(config, "123", null, 1, Collections.singletonList(r1), new MarkDownUtils()).buildForMarkdown())
+                .isEqualTo("Ping: false, All: false, Unique: false, Discussion: false");
+    }
 }

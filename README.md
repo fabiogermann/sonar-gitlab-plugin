@@ -391,6 +391,7 @@ Usage : `${name}`
 | --- | --- | --- |
 | url | String | GitLab url |
 | projectId | String | Project ID in GitLab or internal id or namespace + name or namespace + path or url http or ssh url or url or web |
+| projectKey | String | SonarQube project key |
 | commitSHA | String[] | SHA of the commit comment. Get first `commitSHA[0]` |
 | refName | String | Branch name or reference of the commit |
 | maxGlobalIssues | Integer | Maximum number of anomalies to be displayed in the global comment |
@@ -403,9 +404,20 @@ Usage : `${name}`
 | disableGlobalComment | Boolean | Disable global comment, report only inline |
 | onlyIssueFromCommitFile | Boolean | Show issue for commit file only |
 | commentNoIssue | Boolean | Add a comment even when there is no new issue |
+| pingUser | Boolean | Whether to @ mention users in comments |
+| allIssues | Boolean | Show all issues (true) vs new issues only (false) |
+| uniqueIssuePerInline | Boolean | One issue per inline comment |
 | revision | String | Current revision |
 | author | String | Commit's author for inline |
 | lineNumber | Integer | Current line number for inline issues only |
+| mergeRequestIid | Integer | GitLab Merge Request IID (default -1 if not set) |
+| pullRequestKey | Integer | SonarQube Pull Request Key (default -1 if not set) |
+| statusName | String | Custom status name for commit status |
+| apiVersion | String | GitLab API version |
+| prefixDirectory | String | Prefix for GitLab links |
+| failOnQualityGate | Boolean | Fail scan on quality gate error |
+| isMergeRequestDiscussion | Boolean | Use merge request discussions instead of comments |
+| issueFilter | Severity | Minimum severity filter for issues |
 | BLOCKER | Severity | Blocker |
 | CRITICAL | Severity | Critical |
 | MAJOR | Severity | Major |
