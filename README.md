@@ -6,6 +6,28 @@ Sonar GitLab Plugin
 Inspired by https://github.com/SonarCommunity/sonar-github
 
 # Current version
+## Version 2026.05
+** Only SonarQube 26.5+ **
+
+* bumped plugin api version to 13.5.0.4319
+* bumped plugin api impl version to 26.5.0.122743
+* bumped parent to 84.0.0.3027
+* bumped guava to 33.6.0-jre
+* bumped mockito-core to 5.23.0
+* bumped jacoco-maven-plugin to 0.8.15
+* bumped mockwebserver to 5.4.0
+
+## Version 2025.12
+** Only SonarQube 25.12+ **
+
+* bumped plugin api impl version to 25.12.0.117093
+* bumped commons-text to 1.15.0
+* bumped jacoco-maven-plugin to 0.8.14
+* bumped guava to 33.5.0-jre
+* bumped assertj-core to 3.27.6
+* bumped mockito-core to 5.21.0
+* bumped mockwebserver to 5.3.2
+
 ## Version 5.4.0
 ** Only SonarQube 9.9+ **
 
