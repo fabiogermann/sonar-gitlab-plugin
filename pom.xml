@@ -22,6 +22,7 @@
     <java-gitlab-api.version>1.5.0</java-gitlab-api.version>
     <freemarker.version>2.3.34</freemarker.version>
     <commons-text.version>1.15.0</commons-text.version>
+    <jackson.version>2.22.1</jackson.version>
 
     <license.mailto>gabriel.allaigre@gmail.com</license.mailto>
     <license.owner>Talanlabs</license.owner>
@@ -108,6 +109,18 @@
       <url>https://jitpack.io</url>
     </repository>
   </repositories>
+  <dependencyManagement>
+    <dependencies>
+      <!-- Override jackson pulled transitively by java-gitlab-api (2.9.x has known CVEs) -->
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <build>
     <plugins>
       <plugin>
