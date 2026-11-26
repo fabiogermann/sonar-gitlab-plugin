@@ -9,7 +9,7 @@ Inspired by https://github.com/SonarCommunity/sonar-github
 ## Version 2026.11
 ** Only SonarQube 26.11+ **
 
-* bumped plugin api version to 14.3.0.5639
+* bumped plugin api version to 14.1.0.5543
 * bumped plugin api impl version to 26.11.0.134175
 * requires Java 21 to build and run (SonarQube 26.x artifacts are Java 21 bytecode)
 * bumped jackson to 2.23.0

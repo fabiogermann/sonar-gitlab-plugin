@@ -28,7 +28,7 @@
     <license.owner>Talanlabs</license.owner>
 
     <sonar.version>26.11.0.134175</sonar.version>
-    <sonar-api.version>14.3.0.5639</sonar-api.version>
+    <sonar-api.version>14.1.0.5543</sonar-api.version>
     <sonar.pluginName>GitLab</sonar.pluginName>
     <sonar.pluginClass>com.talanlabs.sonar.plugins.gitlab.GitLabPlugin</sonar.pluginClass>
 
