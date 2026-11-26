@@ -10,25 +10,25 @@
   </parent>
   <groupId>com.talanlabs</groupId>
   <artifactId>sonar-gitlab-plugin</artifactId>
-  <version>2026.05</version>
+  <version>2026.11</version>
   <name>SonarQube :: GitLab Plugin</name>
   <description>GitLab Plugin for Reporting</description>
   <packaging>sonar-plugin</packaging>
   <url>https://github.com/javamachr/sonar-gitlab-plugin</url>
   <properties>
-    <maven.compiler.release>17</maven.compiler.release>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.release>21</maven.compiler.release>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
     <java-gitlab-api.version>1.5.0</java-gitlab-api.version>
-    <freemarker.version>2.3.34</freemarker.version>
+    <freemarker.version>2.3.35</freemarker.version>
     <commons-text.version>1.15.0</commons-text.version>
-    <jackson.version>2.22.1</jackson.version>
+    <jackson.version>2.23.0</jackson.version>
 
     <license.mailto>gabriel.allaigre@gmail.com</license.mailto>
     <license.owner>Talanlabs</license.owner>
 
-    <sonar.version>26.5.0.122743</sonar.version>
-    <sonar-api.version>13.5.0.4319</sonar-api.version>
+    <sonar.version>26.11.0.134175</sonar.version>
+    <sonar-api.version>14.3.0.5639</sonar-api.version>
     <sonar.pluginName>GitLab</sonar.pluginName>
     <sonar.pluginClass>com.talanlabs.sonar.plugins.gitlab.GitLabPlugin</sonar.pluginClass>
 
@@ -37,7 +37,7 @@
     <!-- Release: enable publication to Bintray -->
     <artifactsToPublish>${project.groupId}:${project.artifactId}:jar</artifactsToPublish>
 
-    <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.16</jacoco-maven-plugin.version>
     <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
 
     <sonar.jacoco.reportPaths>${jacoco.ut.execution.data.file}</sonar.jacoco.reportPaths>
@@ -194,7 +194,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.6.0-jre</version>
+      <version>33.8.0-jre</version>
     </dependency>
     <!-- unit tests -->
     <dependency>
@@ -206,13 +206,13 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.27.6</version>
+      <version>3.27.7</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.23.0</version>
+      <version>5.24.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -224,7 +224,7 @@
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>mockwebserver</artifactId>
-      <version>5.4.0</version>
+      <version>5.5.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

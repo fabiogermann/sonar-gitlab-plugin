@@ -27,7 +27,7 @@ import org.junit.Ignore;
 import org.mockito.Mockito;
 import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.postjob.PostJobContext;
-import org.sonar.api.batch.postjob.internal.DefaultPostJobDescriptor;
+import org.sonar.api.batch.postjob.PostJobDescriptor;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.config.PropertyDefinitions;
 import org.sonar.api.config.internal.ConfigurationBridge;
@@ -35,6 +35,7 @@ import org.sonar.api.config.internal.MapSettings;
 import org.sonar.api.utils.MessageException;
 import org.sonar.api.utils.System2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -75,7 +76,7 @@ public class CommitPublishPostJobTest {
 
     @Test
     public void testDescriptor() {
-        DefaultPostJobDescriptor postJobDescriptor = new DefaultPostJobDescriptor();
+        TestPostJobDescriptor postJobDescriptor = new TestPostJobDescriptor();
         commitPublishPostJob.describe(postJobDescriptor);
 
         Assertions.assertThat(postJobDescriptor.name()).isEqualTo("GitLab Commit Issue Publisher");
@@ -464,5 +465,40 @@ public class CommitPublishPostJobTest {
         Mockito.verify(sonarFacade).loadQualityGate();
         Mockito.verify(reporterBuilder).build(qualityGate, issues);
         Mockito.verify(commitFacade, never()).createOrUpdateSonarQubeStatus("failed", "SonarQube Condition Error:0 Warning:2 Ok:3 SonarQube reported no issues");
+    }
+
+    /**
+     * Test double for {@link PostJobDescriptor}. Replaces the removed internal
+     * {@code org.sonar.api.batch.postjob.internal.DefaultPostJobDescriptor}.
+     */
+    private static class TestPostJobDescriptor implements PostJobDescriptor {
+
+        private String name;
+        private final List<String> properties = new ArrayList<>();
+
+        @Override
+        public PostJobDescriptor name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        @Override
+        public PostJobDescriptor requireProperty(String... properties) {
+            this.properties.addAll(Arrays.asList(properties));
+            return this;
+        }
+
+        @Override
+        public PostJobDescriptor requireProperties(String... properties) {
+            return requireProperty(properties);
+        }
+
+        String name() {
+            return name;
+        }
+
+        List<String> properties() {
+            return properties;
+        }
     }
 }
